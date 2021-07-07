@@ -32,14 +32,15 @@ modules:
         dest-filename: insomnia.tar.gz
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%402021.4.0/Insomnia.Core-2021.4.0.tar.gz
-        sha256: 74e2d5dfd3fb98b9a0bd3277035122499d56f290489fdd3310fff22e1975358f
+        url: https://github.com/Kong/insomnia/releases/download/core%402021.4.1/Insomnia.Core-2021.4.1.tar.gz
+        sha256: ffe2a9a66c34f8fefb97dd155681ad946ac6cc5a4a035c13c40de58152f0f620
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases/latest
-          version-query: '.tag_name | sub("core@"; "")'
-          timestamp-query: '.published_at'
-          url-query: '"https://github.com/Kong/insomnia/releases/download/core%40" + $version + "/Insomnia.Core-" + $version + ".tar.gz"'
+          version-query: .tag_name | sub("core@"; "")
+          timestamp-query: .published_at
+          url-query: '"https://github.com/Kong/insomnia/releases/download/core%40"
+            + $version + "/Insomnia.Core-" + $version + ".tar.gz"'
       - type: file
         path: insomnia.png
         # There are no images in the published tarball. The one in the repo is
