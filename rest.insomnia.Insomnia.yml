@@ -53,11 +53,16 @@ modules:
       - type: script
         dest-filename: insomnia.sh
         commands:
+          - if [ -z "$DISPLAY" ] && [ -n "$WAYLAND_DISPLAY" ]; then
+          - EXTRA_ARGS="--enable-features=UseOzonePlatform --ozone-platform=wayland"
+          - else
+          - EXTRA_ARGS=""
+          - fi
           # Share a TMPDIR, so that multiple instance can figure out there's
           # already one running.
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           # This script is required to work around a lack of SUID sandbox helper:
-          - exec zypak-wrapper /app/main/insomnia "$@"
+          - exec zypak-wrapper /app/main/insomnia $EXTRA_ARGS "$@"
       - type: file
         path: rest.insomnia.Insomnia.appdata.xml
       - type: file
