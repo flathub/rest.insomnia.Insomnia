@@ -32,8 +32,8 @@ modules:
         dest-filename: insomnia.tar.gz
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%402021.4.1/Insomnia.Core-2021.4.1.tar.gz
-        sha256: ffe2a9a66c34f8fefb97dd155681ad946ac6cc5a4a035c13c40de58152f0f620
+        url: https://github.com/Kong/insomnia/releases/download/core%402021.5.0/Insomnia.Core-2021.5.0.tar.gz
+        sha256: 2f6dd62be00582e75947f5fb0de60d48c4c7169939f8cf23f7f9e977bf5d36e2
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases/latest
