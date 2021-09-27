@@ -6,6 +6,8 @@ base: org.electronjs.Electron2.BaseApp
 base-version: '21.08'
 separate-locales: false
 command: insomnia
+rename-icon: insomnia
+rename-desktop-file: insomnia.desktop
 finish-args:
   - --socket=x11
   - --socket=wayland
@@ -14,42 +16,45 @@ finish-args:
   # without it. Contributions welcome:
   - --device=all
 modules:
+  - name: unappimage
+    buildsystem: simple
+    build-commands:
+      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=/app/bin
+    sources:
+      - type: git
+        url: https://github.com/refi64/unappimage
+        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
   - name: insomnia
     buildsystem: simple
     build-commands:
-      - tar xf insomnia.tar.gz
-      - install -dm755 /app/share/
-      - install -dm755 /app/main/
-      - mv Insomnia.Core-*/* /app/main
-
-      - install -Dm644 insomnia.desktop /app/share/applications/rest.insomnia.Insomnia.desktop
-      - install -Dm644 insomnia.png /app/share/icons/hicolor/scalable/apps/rest.insomnia.Insomnia.png
+      - unappimage insomnia.AppImage
+      - rm insomnia.AppImage
 
       - install -Dm755 insomnia.sh /app/bin/insomnia
-      - install -Dm644 rest.insomnia.Insomnia.appdata.xml /app/share/metainfo/$FLATPAK_ID.appdata.xml
+      - install -Dm644 squashfs-root/insomnia.desktop -t /app/share/applications
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png -t /app/share/icons/hicolor/512x512/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png -t /app/share/icons/hicolor/256x256/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png -t /app/share/icons/hicolor/128x128/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png -t /app/share/icons/hicolor/64x64/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png -t /app/share/icons/hicolor/32x32/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png -t /app/share/icons/hicolor/16x16/apps
+
+      - install -Dm644 rest.insomnia.Insomnia.appdata.xml -t /app/share/metainfo/
+      - mv squashfs-root /app/main/
     sources:
       - type: file
-        dest-filename: insomnia.tar.gz
+        dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%402021.5.3/Insomnia.Core-2021.5.3.tar.gz
-        sha256: 7c3bc2503278db49e722eaf35d1a361936809f6dc15ec2d52e99b2a704611f03
+        url: https://github.com/Kong/insomnia/releases/download/core%402021.5.3/Insomnia.Core-2021.5.3.AppImage
+        sha256: 40a3ebd4e8a5b4db4c394873c8440ecd9abd933a0100ad10e30e8a278b4a9140
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases/latest
           version-query: .tag_name | sub("core@"; "")
           timestamp-query: .published_at
           url-query: '"https://github.com/Kong/insomnia/releases/download/core%40"
-            + $version + "/Insomnia.Core-" + $version + ".tar.gz"'
-      - type: file
-        path: insomnia.png
-        # There are no images in the published tarball. The one in the repo is
-        # 1024x1024, but the max that flatpak accepts is 512x512, so that one
-        # isn't usable either.
-        #
-        # dest-filename: insomnia.png
-        # url: https://raw.githubusercontent.com/Kong/insomnia/core%402021.3.0/packages/insomnia-app/app/ui/images/insomnia-core-logo.png
-        # sha256: 9495087cb09512d2693f1dd4bc3c2c72a026d1c2d9238922115f8bffcf56e6df
+            + $version + "/Insomnia.Core-" + $version + ".AppImage"'
       - type: script
         dest-filename: insomnia.sh
         commands:
@@ -60,6 +65,3 @@ modules:
           - exec zypak-wrapper /app/main/insomnia "$@"
       - type: file
         path: rest.insomnia.Insomnia.appdata.xml
-      - type: file
-        # The upstream tarball is missing the desktop file.
-        path: insomnia.desktop
