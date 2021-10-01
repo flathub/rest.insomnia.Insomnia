@@ -32,12 +32,18 @@ modules:
 
       - install -Dm755 insomnia.sh /app/bin/insomnia
       - install -Dm644 squashfs-root/insomnia.desktop -t /app/share/applications
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png -t /app/share/icons/hicolor/512x512/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png -t /app/share/icons/hicolor/256x256/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png -t /app/share/icons/hicolor/128x128/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png -t /app/share/icons/hicolor/64x64/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png -t /app/share/icons/hicolor/32x32/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png -t /app/share/icons/hicolor/16x16/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png
+        -t /app/share/icons/hicolor/512x512/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png
+        -t /app/share/icons/hicolor/256x256/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png
+        -t /app/share/icons/hicolor/128x128/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png
+        -t /app/share/icons/hicolor/64x64/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png
+        -t /app/share/icons/hicolor/32x32/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png
+        -t /app/share/icons/hicolor/16x16/apps
 
       - install -Dm644 rest.insomnia.Insomnia.appdata.xml -t /app/share/metainfo/
       - mv squashfs-root /app/main/
