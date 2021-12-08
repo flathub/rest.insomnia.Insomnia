@@ -32,13 +32,20 @@ modules:
 
       - install -Dm755 insomnia.sh /app/bin/insomnia
       - install -dm755 /app/share/applications
-      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop > /app/share/applications/insomnia.desktop
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png -t /app/share/icons/hicolor/512x512/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png -t /app/share/icons/hicolor/256x256/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png -t /app/share/icons/hicolor/128x128/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png -t /app/share/icons/hicolor/64x64/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png -t /app/share/icons/hicolor/32x32/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png -t /app/share/icons/hicolor/16x16/apps
+      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop
+        > /app/share/applications/insomnia.desktop
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png
+        -t /app/share/icons/hicolor/512x512/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png
+        -t /app/share/icons/hicolor/256x256/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png
+        -t /app/share/icons/hicolor/128x128/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png
+        -t /app/share/icons/hicolor/64x64/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png
+        -t /app/share/icons/hicolor/32x32/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png
+        -t /app/share/icons/hicolor/16x16/apps
 
       - install -Dm644 rest.insomnia.Insomnia.appdata.xml -t /app/share/metainfo/
       - mv squashfs-root /app/main/
@@ -47,8 +54,8 @@ modules:
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%402021.6.0/Insomnia.Core-2021.6.0.AppImage
-        sha256: 43d9e2ec7fd50a88301d9c8d8f2d746cedaebb4518cd5ff4dcd34917aaa63ba1
+        url: https://github.com/Kong/insomnia/releases/download/core%402021.7.0/Insomnia.Core-2021.7.0.AppImage
+        sha256: f9687e3bffcb6b9f8046f6f1bd9699276dd1a00435923f8cae7c2701bd14e47f
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases/latest
