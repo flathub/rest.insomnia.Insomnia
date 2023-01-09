@@ -54,13 +54,15 @@ modules:
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%402022.7.0/Insomnia.Core-2022.7.0.AppImage
-        sha256: ef4b1713e0813025263f57b164832d4a69618a301d408f40f5c9b53faa37e223
+        url: https://github.com/Kong/insomnia/releases/download/core%402022.7.1/Insomnia.Core-2022.7.1.AppImage
+        sha256: f162480b49b3ae8eeee3f9578a5a2148b25f39a2c148ee14fa3bdcb8bac22a95
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases
-          version-query: map(select(.prerelease == false)) | map(select(.tag_name | startswith("core@"))) | first | .tag_name | sub("core@"; "")
-          timestamp-query: map(select(.prerelease == false)) | map(select(.tag_name | startswith("core@"))) | first | .published_at
+          version-query: map(select(.prerelease == false)) | map(select(.tag_name
+            | startswith("core@"))) | first | .tag_name | sub("core@"; "")
+          timestamp-query: map(select(.prerelease == false)) | map(select(.tag_name
+            | startswith("core@"))) | first | .published_at
           url-query: '"https://github.com/Kong/insomnia/releases/download/core%40"
             + $version + "/Insomnia.Core-" + $version + ".AppImage"'
       - type: script
