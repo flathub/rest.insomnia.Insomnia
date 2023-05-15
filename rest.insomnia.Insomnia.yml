@@ -54,8 +54,8 @@ modules:
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%402023.1.0/Insomnia.Core-2023.1.0.AppImage
-        sha256: f3fa55f8bdb88148965e67bf98fab4465fb96c0eb5e779806a3e895c3f1b9a74
+        url: https://github.com/Kong/insomnia/releases/download/core%402023.2.1/Insomnia.Core-2023.2.1.AppImage
+        sha256: cac9ab2719651c7226416e3049247e44e7036e3c6b6e9e76320e8aa1de945690
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases
