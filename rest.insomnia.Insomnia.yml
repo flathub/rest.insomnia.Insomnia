@@ -72,6 +72,6 @@ modules:
           # already one running.
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           # This script is required to work around a lack of SUID sandbox helper:
-          - exec zypak-wrapper /app/main/insomnia "$@"
+          - exec zypak-wrapper /app/main/insomnia --ozone-platform-hint=auto "$@"
       - type: file
         path: rest.insomnia.Insomnia.appdata.xml
