@@ -15,6 +15,7 @@ finish-args:
   # I'm not a fan of this permission, but for some reason Insomnia won't start
   # without it. Contributions welcome:
   - --device=all
+  - --filesystem=xdg-config/gtk-3.0:ro
 modules:
   - name: unappimage
     buildsystem: simple
