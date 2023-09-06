@@ -12,6 +12,7 @@ finish-args:
   - --socket=x11
   - --socket=wayland
   - --share=network
+  - --device=dri
 modules:
   - name: unappimage
     buildsystem: simple
