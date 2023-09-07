@@ -1,9 +1,9 @@
 app-id: rest.insomnia.Insomnia
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: '22.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: '22.08'
 separate-locales: false
 command: insomnia
 rename-icon: insomnia
@@ -12,9 +12,7 @@ finish-args:
   - --socket=x11
   - --socket=wayland
   - --share=network
-  # I'm not a fan of this permission, but for some reason Insomnia won't start
-  # without it. Contributions welcome:
-  - --device=all
+  - --device=dri
 modules:
   - name: unappimage
     buildsystem: simple
