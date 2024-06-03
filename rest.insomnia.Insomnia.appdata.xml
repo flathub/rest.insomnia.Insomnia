@@ -3,63 +3,73 @@
   <id>rest.insomnia.Insomnia</id>
   <name>Insomnia</name>
   <project_license>MIT</project_license>
-  <developer_name>Kong</developer_name>
-  <summary>Open Source API Client and Design Platform for GraphQL, REST and gRPC.</summary>
-  <metadata_license>CC0-1.0</metadata_license>
+  <developer id="com.konghq"><name>Kong</name></developer>
   <url type="homepage">https://insomnia.rest/</url>
   <url type="bugtracker">https://github.com/flathub/rest.insomnia.Insomnia/issues</url>
   <launchable type="desktop-id">rest.insomnia.Insomnia.desktop</launchable>
+  <summary>Open-source API client</summary>
   <description>
-    <!-- Copy pasted from the website -->
     <p>
-      Everything begins here. Organize your requests to reflect your workflow
-      or your API data-model. Group and order your API requests to your heart's
-      desire.
+      Insomnia is an open-source, cross-platform API client for GraphQL, REST,
+      WebSockets, Server-sent events (SSE), gRPC and any other HTTP compatible
+      protocol.
     </p>
     <p>
-      Define environment variables like authentication credentials, tokens, or
-      session IDs for re-use globally or within a public / private environment
-      for a seamless development / production workflow.
+      With Insomnia you can:
     </p>
+    <ul>
+      <li>Debug APIs using the most popular protocols and formats.</li>
+      <li>Design APIs using the native OpenAPI editor and visual preview.</li>
+      <li>Test APIs using native test suites.</li>
+      <li>Mock APIs will be coming soon in November 2023.</li>
+      <li>Build CI/CD pipelines using the native Insomnia CLI for linting and testing.</li>
+      <li>
+        Collaborate with others using the many collaboration features to share
+        your projects.
+      </li>
+    </ul>
     <p>
-      Create, organize, share and execute any REST, SOAP, GraphQL, GRPC
-      requests directly from Insomnia without having to switch applications.
+      And a lot more! The following storage options are supported for your
+      projects, collections, specs and all other files:
     </p>
-    <p>
-      Reduce your time to market, and let Insomnia do the heavy lifting by
-      providing you with generated code snippets in popular languages like
-      Curl, NodeJS, Go, Swift, Python, Java, C, and more.
-    </p>
-    <p>
-      Dark mode? Light Mode? We have you covered. Get started quickly with
-      Insomnia's intuitive interface, and choose from one of our pre-bundled
-      nine unique themes to custom tailor your experience.
-    </p>
+    <ul>
+      <li>
+        Local Vault: for local storage of collections, design specs and every
+        other resource.
+      </li>
+      <li>Cloud Sync: for cloud collaboration, encrypted and free.</li>
+      <li>Git Sync: for Git storage of all files using any 3rd party Git repository.</li>
+    </ul>
   </description>
+
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://images.prismic.io/cms-react-testing/3a63253f-b28d-4bcf-964d-2cca86b6676c_open-source-api-client.png?auto=compress,format</image>
+      <caption>Product UI</caption>
+      <image>https://insomnia.rest/images/home/product-ui.png</image>
     </screenshot>
   </screenshots>
+
+  <launchable type="desktop-id">rest.insomnia.Insomnia.desktop</launchable>
+
   <releases>
-    <release version="9.2.0" date="2024-05-15"/>
-    <release version="9.1.1" date="2024-05-07"/>
-    <release version="9.1.0" date="2024-04-30"/>
-    <release version="9.0.0" date="2024-04-24"/>
-    <release version="8.6.1" date="2024-02-06"/>
-    <release version="8.6.0" date="2024-01-19"/>
-    <release version="8.5.1" date="2023-12-21"/>
-    <release version="8.5.0" date="2023-12-20"/>
-    <release version="8.4.5" date="2023-11-24"/>
-    <release version="8.4.4" date="2023-11-23"/>
-    <release version="8.4.3" date="2023-11-23"/>
-    <release version="8.4.2" date="2023-11-15"/>
-    <release version="8.4.1" date="2023-11-13"/>
-    <release version="8.4.0" date="2023-11-10"/>
-    <release version="8.3.0" date="2023-10-16"/>
-    <release version="8.2.0" date="2023-10-05"/>
-    <release version="8.1.0" date="2023-09-29"/>
-    <release version="8.0.0" date="2023-09-28"/>
+    <release version="1:9.2.0" date="2024-05-15"/>
+    <release version="1:9.1.1" date="2024-05-07"/>
+    <release version="1:9.1.0" date="2024-04-30"/>
+    <release version="1:9.0.0" date="2024-04-24"/>
+    <release version="1:8.6.1" date="2024-02-06"/>
+    <release version="1:8.6.0" date="2024-01-19"/>
+    <release version="1:8.5.1" date="2023-12-21"/>
+    <release version="1:8.5.0" date="2023-12-20"/>
+    <release version="1:8.4.5" date="2023-11-24"/>
+    <release version="1:8.4.4" date="2023-11-23"/>
+    <release version="1:8.4.3" date="2023-11-23"/>
+    <release version="1:8.4.2" date="2023-11-15"/>
+    <release version="1:8.4.1" date="2023-11-13"/>
+    <release version="1:8.4.0" date="2023-11-10"/>
+    <release version="1:8.3.0" date="2023-10-16"/>
+    <release version="1:8.2.0" date="2023-10-05"/>
+    <release version="1:8.1.0" date="2023-09-29"/>
+    <release version="1:8.0.0" date="2023-09-28"/>
     <release version="2023.5.8" date="2023-09-07"/>
     <release version="2023.5.7" date="2023-08-30"/>
     <release version="2023.1.0" date="2023-03-09"/>
@@ -81,5 +91,7 @@
     <release version="2021.4.0" date="2021-07-02"/>
   </releases>
   <content_rating type="oars-1.1"/>
+
   <update_contact>hugo@barrera.io</update_contact>
+  <metadata_license>CC0-1.0</metadata_license>
 </component>
