@@ -30,7 +30,7 @@ modules:
         npm_config_node_libcurl_cpp_std: c++17
     sources:
       - type: file
-        path: rest.insomnia.Insomnia.appdata.xml
+        path: rest.insomnia.Insomnia.metainfo.xml
       - type: script
         dest-filename: insomnia.sh
         commands:
@@ -57,5 +57,5 @@ modules:
       - cp -av packages/insomnia/dist/linux*unpacked /app/main
       - cp -av packages/insomnia/dist/__flatpak-*/share /app
       - sed -i -e 's|^Exec=.*$|Exec=/app/bin/insomnia|' /app/share/applications/$FLATPAK_ID.desktop
-      - install -Dm644 "$FLATPAK_BUILDER_BUILDDIR/rest.insomnia.Insomnia.appdata.xml" -t /app/share/metainfo/
+      - install -Dm644 "$FLATPAK_BUILDER_BUILDDIR/rest.insomnia.Insomnia.metainfo.xml" -t /app/share/metainfo/
       - install -Dm755 "$FLATPAK_BUILDER_BUILDDIR/insomnia.sh" /app/bin/insomnia
