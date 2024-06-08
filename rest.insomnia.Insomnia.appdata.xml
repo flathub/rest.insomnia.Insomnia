@@ -37,7 +37,7 @@
     </p>
   </description>
   <screenshots>
-    <screenshot>
+    <screenshot type="default">
       <image type="source">https://images.prismic.io/cms-react-testing/3a63253f-b28d-4bcf-964d-2cca86b6676c_open-source-api-client.png?auto=compress,format</image>
     </screenshot>
   </screenshots>
