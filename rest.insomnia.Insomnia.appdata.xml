@@ -8,6 +8,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <url type="homepage">https://insomnia.rest/</url>
   <url type="bugtracker">https://github.com/flathub/rest.insomnia.Insomnia/issues</url>
+  <launchable type="desktop-id">rest.insomnia.Insomnia.desktop</launchable>
   <description>
     <!-- Copy pasted from the website -->
     <p>
