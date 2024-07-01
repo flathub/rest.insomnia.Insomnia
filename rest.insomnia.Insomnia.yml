@@ -35,21 +35,26 @@ modules:
         dest-filename: insomnia.sh
         commands:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
-          - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations "$@"
+          - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
+            "$@"
       - type: archive
-        url: https://github.com/Kong/insomnia/archive/refs/tags/core@9.2.0/insomnia-9.2.0.tar.gz
-        sha256: ce80de845040b591ff5fae8f0f7fcdd6397acccd5c76eec00bd25931ee8892c3
+        url: https://github.com/Kong/insomnia/archive/refs/tags/core@9.3.1/insomnia-9.3.1.tar.gz
+        sha256: 6192661cfb317fb6193f02c7b8d406b91a5b22ce2a653fd8118b44245fc68ec7
         dest: main
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases
-          version-query: map(select(.prerelease == false)) | map(select(.tag_name | startswith("core@"))) | first | .tag_name | sub("core@"; "")
-          timestamp-query: map(select(.prerelease == false)) | map(select(.tag_name | startswith("core@"))) | first | .published_at
-          url-query: '"https://github.com/Kong/insomnia/archive/refs/tags/core@" + $version + "/insomnia-" + $version + ".tar.gz"'
+          version-query: map(select(.prerelease == false)) | map(select(.tag_name
+            | startswith("core@"))) | first | .tag_name | sub("core@"; "")
+          timestamp-query: map(select(.prerelease == false)) | map(select(.tag_name
+            | startswith("core@"))) | first | .published_at
+          url-query: '"https://github.com/Kong/insomnia/archive/refs/tags/core@" +
+            $version + "/insomnia-" + $version + ".tar.gz"'
       - generated-sources.json
     build-commands:
       - npm ci --offline --foreground-scripts --verbose
-      - jq '.desktopName="rest.insomnia.Insomnia"' <<<$(<packages/insomnia/package.json) >packages/insomnia/package.json
+      - jq '.desktopName="rest.insomnia.Insomnia"' <<<$(<packages/insomnia/package.json)
+        >packages/insomnia/package.json
       - |
         . ../flatpak-node/electron-builder-arch-args.sh
         # this fails after generating desktop files and icons, but that's all we need
@@ -57,5 +62,6 @@ modules:
       - cp -av packages/insomnia/dist/linux*unpacked /app/main
       - cp -av packages/insomnia/dist/__flatpak-*/share /app
       - sed -i -e 's|^Exec=.*$|Exec=/app/bin/insomnia|' /app/share/applications/$FLATPAK_ID.desktop
-      - install -Dm644 "$FLATPAK_BUILDER_BUILDDIR/rest.insomnia.Insomnia.metainfo.xml" -t /app/share/metainfo/
+      - install -Dm644 "$FLATPAK_BUILDER_BUILDDIR/rest.insomnia.Insomnia.metainfo.xml"
+        -t /app/share/metainfo/
       - install -Dm755 "$FLATPAK_BUILDER_BUILDDIR/insomnia.sh" /app/bin/insomnia
