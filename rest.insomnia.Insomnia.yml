@@ -38,8 +38,8 @@ modules:
           - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
             "$@"
       - type: archive
-        url: https://github.com/Kong/insomnia/archive/refs/tags/core@9.3.3/insomnia-9.3.3.tar.gz
-        sha256: 727879cf2c107d9f9d873c009a5e5fa5d74d9529bf76e8abadc08ad4f9e1e306
+        url: https://github.com/Kong/insomnia/archive/refs/tags/core@10.0.0/insomnia-10.0.0.tar.gz
+        sha256: 7be41f45dddbfbf12365bfcba5ccc886347da8926114b00bd0d1852cf3282991
         dest: main
         x-checker-data:
           type: json
