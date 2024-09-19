@@ -61,7 +61,7 @@ modules:
         npm run app-package -- -- $ELECTRON_BUILDER_ARCH_ARGS --config.appId=$FLATPAK_ID --linux flatpak --dir || true
       - cp -av packages/insomnia/dist/linux*unpacked /app/main
       - cp -av packages/insomnia/dist/__flatpak-*/share /app
-      - sed -i -e 's|^Exec=.*$|Exec=/app/bin/insomnia|' /app/share/applications/$FLATPAK_ID.desktop
+      - sed -i -e 's|^Exec=.*$|Exec=/app/bin/insomnia %u|' /app/share/applications/$FLATPAK_ID.desktop
       - install -Dm644 "$FLATPAK_BUILDER_BUILDDIR/rest.insomnia.Insomnia.metainfo.xml"
         -t /app/share/metainfo/
       - install -Dm755 "$FLATPAK_BUILDER_BUILDDIR/insomnia.sh" /app/bin/insomnia
