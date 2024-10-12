@@ -50,8 +50,22 @@ modules:
             | startswith("core@"))) | first | .published_at
           url-query: '"https://github.com/Kong/insomnia/archive/refs/tags/core@" +
             $version + "/insomnia-" + $version + ".tar.gz"'
-      - generated-sources.json
+      - type: git
+        url: https://github.com/jackkav/grpc-reflection-js
+        commit: e78663356c362d44e629cfa119d12b63ba615bc0
+        dest: grpc-reflection-js
+      - type: patch
+        paths:
+          - patches/sources.patch
+        options: [ '-d', 'main' ]
+      - grpc-reflection-js-generated-sources.json
+      - insomnia-generated-sources.json
     build-commands:
+      - |
+        cd ../grpc-reflection-js
+        yarn config set yarn-offline-mirror "/run/build/insomnia/flatpak-node/yarn-mirror"
+        yarn install --offline --ignore-scripts
+        yarn run compile
       - npm ci --offline --foreground-scripts --verbose
       - jq '.desktopName="rest.insomnia.Insomnia"' <<<$(<packages/insomnia/package.json)
         >packages/insomnia/package.json
