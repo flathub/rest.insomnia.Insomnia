@@ -6,10 +6,8 @@ base: org.electronjs.Electron2.BaseApp
 base-version: '23.08'
 separate-locales: false
 command: insomnia
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.node20
-build-options:
-  append-path: /usr/lib/sdk/node20/bin
+rename-icon: insomnia
+rename-desktop-file: insomnia.desktop
 finish-args:
   - --socket=wayland
   - --socket=fallback-x11
@@ -19,15 +17,39 @@ finish-args:
   - --env=ELECTRON_TRASH=gio
   - --talk-name=org.freedesktop.Notifications
 modules:
+  - name: unappimage
+    buildsystem: simple
+    build-commands:
+      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=/app/bin
+    sources:
+      - type: git
+        url: https://github.com/refi64/unappimage
+        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
   - name: insomnia
     buildsystem: simple
-    subdir: main
-    build-options:
-      env:
-        XDG_CACHE_HOME: /run/build/insomnia/flatpak-node/cache
-        npm_config_cache: /run/build/insomnia/flatpak-node/npm-cache
-        npm_config_offline: 'true'
-        npm_config_node_libcurl_cpp_std: c++17
+    build-commands:
+      - unappimage insomnia.AppImage
+      - rm insomnia.AppImage
+
+      - install -Dm755 insomnia.sh /app/bin/insomnia
+      - install -dm755 /app/share/applications
+      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop
+        > /app/share/applications/insomnia.desktop
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png
+        -t /app/share/icons/hicolor/512x512/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png
+        -t /app/share/icons/hicolor/256x256/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png
+        -t /app/share/icons/hicolor/128x128/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png
+        -t /app/share/icons/hicolor/64x64/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png
+        -t /app/share/icons/hicolor/32x32/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png
+        -t /app/share/icons/hicolor/16x16/apps
+
+      - install -Dm644 rest.insomnia.Insomnia.metainfo.xml -t /app/share/metainfo/
+      - mv squashfs-root /app/main/
     sources:
       - type: file
         path: rest.insomnia.Insomnia.metainfo.xml
@@ -37,10 +59,12 @@ modules:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
           - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
             "$@"
-      - type: archive
-        url: https://github.com/Kong/insomnia/archive/refs/tags/core@10.0.0/insomnia-10.0.0.tar.gz
-        sha256: 7be41f45dddbfbf12365bfcba5ccc886347da8926114b00bd0d1852cf3282991
-        dest: main
+      - type: file
+        dest-filename: insomnia.AppImage
+        only-arches:
+          - x86_64
+        url: https://github.com/Kong/insomnia/releases/download/core%4010.0.0/Insomnia.Core-10.0.0.AppImage
+        sha256: 844962b0a0750b5072f2508280da8dafa6c838c2aa306dd4c8143a8d8bbcc8d8
         x-checker-data:
           type: json
           url: https://api.github.com/repos/Kong/insomnia/releases
@@ -48,34 +72,5 @@ modules:
             | startswith("core@"))) | first | .tag_name | sub("core@"; "")
           timestamp-query: map(select(.prerelease == false)) | map(select(.tag_name
             | startswith("core@"))) | first | .published_at
-          url-query: '"https://github.com/Kong/insomnia/archive/refs/tags/core@" +
-            $version + "/insomnia-" + $version + ".tar.gz"'
-      - type: git
-        url: https://github.com/jackkav/grpc-reflection-js
-        commit: e78663356c362d44e629cfa119d12b63ba615bc0
-        dest: grpc-reflection-js
-      - type: patch
-        paths:
-          - patches/sources.patch
-        options: [ '-d', 'main' ]
-      - grpc-reflection-js-generated-sources.json
-      - insomnia-generated-sources.json
-    build-commands:
-      - |
-        cd ../grpc-reflection-js
-        yarn config set yarn-offline-mirror "/run/build/insomnia/flatpak-node/yarn-mirror"
-        yarn install --offline --ignore-scripts
-        yarn run compile
-      - npm ci --offline --foreground-scripts --verbose
-      - jq '.desktopName="rest.insomnia.Insomnia"' <<<$(<packages/insomnia/package.json)
-        >packages/insomnia/package.json
-      - |
-        . ../flatpak-node/electron-builder-arch-args.sh
-        # this fails after generating desktop files and icons, but that's all we need
-        npm run app-package -- -- $ELECTRON_BUILDER_ARCH_ARGS --config.appId=$FLATPAK_ID --linux flatpak --dir || true
-      - cp -av packages/insomnia/dist/linux*unpacked /app/main
-      - cp -av packages/insomnia/dist/__flatpak-*/share /app
-      - sed -i -e 's|^Exec=.*$|Exec=/app/bin/insomnia %u|' /app/share/applications/$FLATPAK_ID.desktop
-      - install -Dm644 "$FLATPAK_BUILDER_BUILDDIR/rest.insomnia.Insomnia.metainfo.xml"
-        -t /app/share/metainfo/
-      - install -Dm755 "$FLATPAK_BUILDER_BUILDDIR/insomnia.sh" /app/bin/insomnia
+          url-query: '"https://github.com/Kong/insomnia/releases/download/core%40"
+            + $version + "/Insomnia.Core-" + $version + ".AppImage"'
