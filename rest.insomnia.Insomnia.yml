@@ -17,60 +17,53 @@ finish-args:
   - --env=ELECTRON_TRASH=gio
   - --talk-name=org.freedesktop.Notifications
 modules:
-  - name: unappimage
-    buildsystem: simple
-    build-commands:
-      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=/app/bin
-    sources:
-      - type: git
-        url: https://github.com/refi64/unappimage
-        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
   - name: insomnia
     buildsystem: simple
     build-commands:
-      - unappimage insomnia.AppImage
+      - chmod +x insomnia.AppImage
+      - ./insomnia.AppImage --appimage-extract
       - rm insomnia.AppImage
 
-      - install -Dm755 insomnia.sh /app/bin/insomnia
+      - install -Dm755 insomnia /app/bin/insomnia
       - install -dm755 /app/share/applications
-      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop
-        > /app/share/applications/insomnia.desktop
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png
-        -t /app/share/icons/hicolor/512x512/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png
-        -t /app/share/icons/hicolor/256x256/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png
-        -t /app/share/icons/hicolor/128x128/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png
-        -t /app/share/icons/hicolor/64x64/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png
-        -t /app/share/icons/hicolor/32x32/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png
-        -t /app/share/icons/hicolor/16x16/apps
+      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop > /app/share/applications/insomnia.desktop
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png -t /app/share/icons/hicolor/512x512/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png -t /app/share/icons/hicolor/256x256/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png -t /app/share/icons/hicolor/128x128/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png -t /app/share/icons/hicolor/64x64/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png -t /app/share/icons/hicolor/32x32/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png -t /app/share/icons/hicolor/16x16/apps
 
       - install -Dm644 rest.insomnia.Insomnia.metainfo.xml -t /app/share/metainfo/
+      - rm -f squashfs-root/{.DirIcon,AppRun,insomnia.desktop.insomnia.png}
       - mv squashfs-root /app/main/
     sources:
       - type: file
         path: rest.insomnia.Insomnia.metainfo.xml
       - type: script
-        dest-filename: insomnia.sh
+        dest-filename: insomnia
         commands:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
-          - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
-            "$@"
+          - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations "$@"
       - type: file
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core%4010.0.0/Insomnia.Core-10.0.0.AppImage
-        sha256: 844962b0a0750b5072f2508280da8dafa6c838c2aa306dd4c8143a8d8bbcc8d8
+        url: https://github.com/Kong/insomnia/releases/download/core@10.3.1/Insomnia.Core-10.3.1-x86_64.AppImage
+        sha256: 152a8bc1dcd327dd17f1ac2223c75eff33aecf90792b7acdafbf19701e247d65
         x-checker-data:
-          type: json
-          url: https://api.github.com/repos/Kong/insomnia/releases
-          version-query: map(select(.prerelease == false)) | map(select(.tag_name
-            | startswith("core@"))) | first | .tag_name | sub("core@"; "")
-          timestamp-query: map(select(.prerelease == false)) | map(select(.tag_name
-            | startswith("core@"))) | first | .published_at
-          url-query: '"https://github.com/Kong/insomnia/releases/download/core%40"
-            + $version + "/Insomnia.Core-" + $version + ".AppImage"'
+          type: anitya
+          project-id: 372839
+          stable-only: true
+          url-template: https://github.com/Kong/insomnia/releases/download/core@$version/Insomnia.Core-$version-x86_64.AppImage
+      - type: file
+        dest-filename: insomnia.AppImage
+        only-arches:
+          - aarch64
+        url: https://github.com/Kong/insomnia/releases/download/core@10.3.1/Insomnia.Core-10.3.1-arm64.AppImage
+        sha256: f29b8ee3bc86394a21ca45b2e3d6c44a0d73194a9a1e7ab5a85f2ae95981232a
+        x-checker-data:
+          type: anitya
+          project-id: 372839
+          stable-only: true
+          url-template: https://github.com/Kong/insomnia/releases/download/core@$version/Insomnia.Core-$version-arm64.AppImage
