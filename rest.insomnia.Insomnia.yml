@@ -37,6 +37,7 @@ modules:
       - install -Dm644 rest.insomnia.Insomnia.metainfo.xml -t /app/share/metainfo/
       - rm -f squashfs-root/{.DirIcon,AppRun,insomnia.desktop.insomnia.png}
       - mv squashfs-root /app/main/
+      - patch-desktop-filename /app/main/resources/app.asar
     sources:
       - type: file
         path: rest.insomnia.Insomnia.metainfo.xml
