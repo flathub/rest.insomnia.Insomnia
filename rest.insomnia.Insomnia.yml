@@ -1,9 +1,9 @@
 app-id: rest.insomnia.Insomnia
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: '24.08'
 separate-locales: false
 command: insomnia
 rename-icon: insomnia
@@ -49,21 +49,10 @@ modules:
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core@10.3.1/Insomnia.Core-10.3.1-x86_64.AppImage
-        sha256: 152a8bc1dcd327dd17f1ac2223c75eff33aecf90792b7acdafbf19701e247d65
+        url: https://github.com/Kong/insomnia/releases/download/core@11.3.0/Insomnia.Core-11.3.0.AppImage
+        sha256: b32ec7e4a1bbbb2365f0e642735771e7124551985c3266e90e2db885dcfc08aa
         x-checker-data:
           type: anitya
           project-id: 372839
           stable-only: true
           url-template: https://github.com/Kong/insomnia/releases/download/core@$version/Insomnia.Core-$version-x86_64.AppImage
-      - type: file
-        dest-filename: insomnia.AppImage
-        only-arches:
-          - aarch64
-        url: https://github.com/Kong/insomnia/releases/download/core@10.3.1/Insomnia.Core-10.3.1-arm64.AppImage
-        sha256: f29b8ee3bc86394a21ca45b2e3d6c44a0d73194a9a1e7ab5a85f2ae95981232a
-        x-checker-data:
-          type: anitya
-          project-id: 372839
-          stable-only: true
-          url-template: https://github.com/Kong/insomnia/releases/download/core@$version/Insomnia.Core-$version-arm64.AppImage
