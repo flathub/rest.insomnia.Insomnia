@@ -26,13 +26,20 @@ modules:
 
       - install -Dm755 insomnia /app/bin/insomnia
       - install -dm755 /app/share/applications
-      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop > /app/share/applications/insomnia.desktop
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png -t /app/share/icons/hicolor/512x512/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png -t /app/share/icons/hicolor/256x256/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png -t /app/share/icons/hicolor/128x128/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png -t /app/share/icons/hicolor/64x64/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png -t /app/share/icons/hicolor/32x32/apps
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png -t /app/share/icons/hicolor/16x16/apps
+      - sed -e 's|Exec=AppRun|Exec=/app/bin/insomnia|' squashfs-root/insomnia.desktop
+        > /app/share/applications/insomnia.desktop
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/512x512/apps/insomnia.png
+        -t /app/share/icons/hicolor/512x512/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256/apps/insomnia.png
+        -t /app/share/icons/hicolor/256x256/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/insomnia.png
+        -t /app/share/icons/hicolor/128x128/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/64x64/apps/insomnia.png
+        -t /app/share/icons/hicolor/64x64/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/insomnia.png
+        -t /app/share/icons/hicolor/32x32/apps
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/16x16/apps/insomnia.png
+        -t /app/share/icons/hicolor/16x16/apps
 
       - install -Dm644 rest.insomnia.Insomnia.metainfo.xml -t /app/share/metainfo/
       - rm -f squashfs-root/{.DirIcon,AppRun,insomnia.desktop.insomnia.png}
@@ -45,13 +52,14 @@ modules:
         dest-filename: insomnia
         commands:
           - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
-          - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations "$@"
+          - exec zypak-wrapper.sh /app/main/insomnia --ozone-platform-hint=auto --enable-features=WaylandWindowDecorations
+            "$@"
       - type: file
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core@11.3.0/Insomnia.Core-11.3.0.AppImage
-        sha256: b32ec7e4a1bbbb2365f0e642735771e7124551985c3266e90e2db885dcfc08aa
+        url: https://github.com/Kong/insomnia/releases/download/core@11.4.0/Insomnia.Core-11.4.0.AppImage
+        sha256: 1a3ce0a40f67c3a8497879353dc25e53a346e6a97e69fb8c7407e7cdc361c465
         x-checker-data:
           type: anitya
           project-id: 372839
