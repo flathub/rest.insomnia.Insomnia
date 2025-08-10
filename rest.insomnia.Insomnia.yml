@@ -56,4 +56,4 @@ modules:
           type: anitya
           project-id: 372839
           stable-only: true
-          url-template: https://github.com/Kong/insomnia/releases/download/core@$version/Insomnia.Core-$version-x86_64.AppImage
+          url-template: https://github.com/Kong/insomnia/releases/download/core@$version/Insomnia.Core-$version.AppImage
