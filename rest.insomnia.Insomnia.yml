@@ -58,8 +58,8 @@ modules:
         dest-filename: insomnia.AppImage
         only-arches:
           - x86_64
-        url: https://github.com/Kong/insomnia/releases/download/core@11.5.0/Insomnia.Core-11.5.0.AppImage
-        sha256: f8fe9a0ebe8f0ab4a0577915d208498609499eb1d87df3b416df534a63799eb4
+        url: https://github.com/Kong/insomnia/releases/download/core@11.6.0/Insomnia.Core-11.6.0.AppImage
+        sha256: c47a91091e83d5a86a4f2580f627152b9a3290004ca79a9c824df9c358f3076b
         x-checker-data:
           type: anitya
           project-id: 372839
