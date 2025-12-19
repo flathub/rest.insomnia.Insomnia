@@ -52,8 +52,11 @@
   <launchable type="desktop-id">rest.insomnia.Insomnia.desktop</launchable>
 
   <releases>
-    <release version="12.1.0" date="2025-11-21">
+    <release version="12.2.0" date="2025-12-19">
       <description></description>
+    </release>
+    <release version="12.1.0" date="2025-11-21">
+      <description/>
     </release>
     <release version="12.0.0" date="2025-11-03">
       <description/>
