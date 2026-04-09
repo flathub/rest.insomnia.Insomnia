@@ -1,9 +1,9 @@
 app-id: rest.insomnia.Insomnia
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '24.08'
+base-version: '25.08'
 separate-locales: false
 command: insomnia
 rename-icon: insomnia
@@ -44,7 +44,7 @@ modules:
       - install -Dm644 rest.insomnia.Insomnia.metainfo.xml -t /app/share/metainfo/
       - rm -f squashfs-root/{.DirIcon,AppRun,insomnia.desktop.insomnia.png}
       - mv squashfs-root /app/main/
-      - patch-desktop-filename /app/main/resources/app.asar
+      - patch-electron-desktop-filename /app/main/resources/app.asar
     sources:
       - type: file
         path: rest.insomnia.Insomnia.metainfo.xml
