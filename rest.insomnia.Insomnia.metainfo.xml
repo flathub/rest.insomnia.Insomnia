@@ -6,6 +6,7 @@
   <developer id="com.konghq"><name>Kong</name></developer>
   <url type="homepage">https://insomnia.rest/</url>
   <url type="bugtracker">https://github.com/flathub/rest.insomnia.Insomnia/issues</url>
+  <url type="vcs-browser">https://github.com/kong/insomnia</url>
   <launchable type="desktop-id">rest.insomnia.Insomnia.desktop</launchable>
   <summary>Open-source API client</summary>
   <description>
